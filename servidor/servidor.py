@@ -1,8 +1,14 @@
 import socket
 import threading
 import cv2
+import sys
+import os
+
+# Add parent directory to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../utils')))
+
 import protocolo
-from imagem import Imagem
+from image import Imagem
 
 
 class ServidorMT:
@@ -13,9 +19,7 @@ class ServidorMT:
     def __init__(self, host: str, port: int):
         self._host = host
         self._port = port
-        self.__haar_cascade_path = (
-            cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
-        )
+        self.__haar_cascade_path = os.path.join(cv2.data.haarcascades,"haarcascade_frontalface_default.xml")
 
     def _processar_imagem(self, img_obj: Imagem) -> Imagem:
         """

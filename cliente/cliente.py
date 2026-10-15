@@ -1,6 +1,13 @@
 import socket
 import cv2
-from imagem import Imagem
+import sys
+import os
+
+# Add parent directory to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../utils')))
+
+# Import the module
+import image
 import protocolo
 
 
@@ -19,7 +26,7 @@ class Cliente:
         recebe a imagem processada e exibe na janela do OpenCV.
         """
         # Carrega e codifica a imagem em JPEG usando a classe Imagem
-        img_obj = Imagem.ler(caminho_imagem)
+        img_obj = image.Imagem.ler(caminho_imagem)
         if img_obj.matriz is None:
             print(f"Erro ao carregar a imagem do caminho: {caminho_imagem}")
             return
@@ -43,7 +50,7 @@ class Cliente:
 
             if bytes_resposta:
                 # Decodifica os bytes recebidos
-                img_processada = Imagem.decodificar(bytes_resposta)
+                img_processada = image.Imagem.decodificar(bytes_resposta)
 
                 # Exibe a janela com o resultado
                 cv2.imshow("Resultado - Detecção de Faces",
